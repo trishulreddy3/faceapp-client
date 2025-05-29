@@ -222,7 +222,6 @@ export default function Dashboard() {
     { id: "account", label: "Account", icon: User },
     { id: "settings", label: "Settings", icon: Settings },
     { id: "results", label: "Results", icon: Brain },
-    { id: "help", label: "Help/contact", icon: AlertCircle },
     { id: "contact", label: "Contact us", icon: Mail },
     { id: "about", label: "About", icon: TrendingUp },
 
@@ -625,11 +624,11 @@ const handlecontactSubmit = () => {
               </motion.div>
             )}
             {tab === "contact" && (
-  <motion.div 
-    key="contact" 
-    variants={contentVariants} 
-    initial="hidden" 
-    animate="visible" 
+  <motion.div
+    key="contact"
+    variants={contentVariants}
+    initial="hidden"
+    animate="visible"
     exit="exit"
   >
     <div className="max-w-2xl mx-auto">
@@ -644,7 +643,7 @@ const handlecontactSubmit = () => {
           <p className="text-white/70">Get in touch with us. We'd love to hear from you.</p>
         </div>
 
-        <div className="space-y-6">
+        <form onSubmit={handlecontactSubmit} className="space-y-6">
           <div className="space-y-3">
             <label className="block text-sm font-medium text-white">Full Name</label>
             <div className="relative">
@@ -724,14 +723,14 @@ const handlecontactSubmit = () => {
             </div>
           </div>
 
-          <button 
-            onClick={handlecontactSubmit}
+          <button
+            type="submit"
             className="w-full py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-xl hover:from-purple-600 hover:to-pink-600 transition-all duration-200 flex items-center justify-center gap-2"
           >
             <Send className="h-5 w-5" />
             Send Message
           </button>
-        </div>
+        </form>
 
         {/* Contact Info Section */}
         <div className="mt-8 pt-8 border-t border-white/20">
@@ -755,6 +754,7 @@ const handlecontactSubmit = () => {
     </div>
   </motion.div>
 )}
+
 
 
 {tab === "results" && (

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, User, MessageSquare } from 'lucide-react';
+import { db } from '../firebase';
+import { collection, addDoc } from 'firebase/firestore';
 
 const ContactUs = ({ tab }) => {
   const [formData, setFormData] = useState({
@@ -41,11 +43,34 @@ const ContactUs = ({ tab }) => {
     });
   };
 
-  const handleSubmit = () => {
-    console.log('Form submitted:', formData);
-    // Handle form submission logic here
-    alert('Message sent successfully!');
+  const handlecontactSubmit = async (e) => {
+    e.preventDefault();
+  
+    try {
+      const sanitizedData = Object.fromEntries(
+        Object.entries(formData).map(([key, value]) => [key, value ?? ""])
+      );
+  
+      const docRef = await addDoc(collection(db, "contacts"), sanitizedData);
+      console.log("Document written with ID: ", docRef.id);
+      alert("Message sent successfully!");
+  
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        subject: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error("Error submitting form: ", error);
+      alert("Failed to send message. Please try again later.");
+    }
   };
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        handlecontactSubmit(e);
+    };  
 
   return (
     <>
@@ -69,7 +94,8 @@ const ContactUs = ({ tab }) => {
                 <p className="text-white/70">Get in touch with us. We'd love to hear from you.</p>
               </div>
 
-              <div className="space-y-6">
+              {/* Wrap inputs in a form with onSubmit */}
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="space-y-3">
                   <label className="block text-sm font-medium text-white">Full Name</label>
                   <div className="relative">
@@ -150,13 +176,13 @@ const ContactUs = ({ tab }) => {
                 </div>
 
                 <button 
-                  onClick={handleSubmit}
+                  type="submit"  // Changed to submit type
                   className="w-full py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-xl hover:from-purple-600 hover:to-pink-600 transition-all duration-200 flex items-center justify-center gap-2"
                 >
                   <Send className="h-5 w-5" />
                   Send Message
                 </button>
-              </div>
+              </form>
 
               {/* Contact Info Section */}
               <div className="mt-8 pt-8 border-t border-white/20">
