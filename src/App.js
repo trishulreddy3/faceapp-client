@@ -9,6 +9,7 @@ import Dashboard from './pages/Dashboard';
 import ContactUs from './components/contactus'; 
 import Welcome from './components/Welcome';
 import TermsAndConditions from './components/TermsAndConditions';
+import AboutUs from './components/aboutus'; // ✅ use the correct relative path
 
 function App() {
   return (

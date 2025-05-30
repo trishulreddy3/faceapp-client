@@ -229,19 +229,42 @@ const ProfileInterface = () => {
     const file = e.target.files[0];
     if (file && auth.currentUser) {
       setUploading(true);
-      const imageRef = ref(storage, `${imageType}s/${auth.currentUser.uid}`);
-      await uploadBytes(imageRef, file);
-      const imageUrl = await getDownloadURL(imageRef);
-      
-      const updatedData = { ...editData, [imageType]: imageUrl };
-      setEditData(updatedData);
-      setProfileData(updatedData);
-      
-      const userRef = doc(db, 'users', auth.currentUser.uid);
-      await updateDoc(userRef, { [imageType]: imageUrl });
-      setUploading(false);
+  
+      const apiKey = '0869a9cdfb57dbdf390e89cf7473f08b'; // Replace with your Imgbb API key
+      const formData = new FormData();
+      formData.append('image', file);
+      formData.append('key', apiKey);
+  
+      try {
+        const response = await fetch('https://api.imgbb.com/1/upload', {
+          method: 'POST',
+          body: formData,
+        });
+  
+        const result = await response.json();
+  
+        if (result.success) {
+          const imageUrl = result.data.url;
+  
+          // Update local state
+          const updatedData = { ...editData, [imageType]: imageUrl };
+          setEditData(updatedData);
+          setProfileData(updatedData);
+  
+          // Update Firestore user document
+          const userRef = doc(db, 'users', auth.currentUser.uid);
+          await updateDoc(userRef, { [imageType]: imageUrl });
+        } else {
+          console.error('Image upload to Imgbb failed:', result);
+        }
+      } catch (error) {
+        console.error('Error uploading image:', error);
+      } finally {
+        setUploading(false);
+      }
     }
   };
+  
 
   const addSkill = () => {
     if (newSkill && !editData.skills.includes(newSkill)) {

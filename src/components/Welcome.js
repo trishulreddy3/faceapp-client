@@ -68,9 +68,9 @@ function Welcome() {
           </div>
           
           <h1 className="text-6xl md:text-7xl font-bold text-white mb-6 leading-tight">
-            Face
+            Smart photo 
             <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-              Cluster
+              Organizer
             </span>
           </h1>
           

@@ -5,6 +5,8 @@ import { motion, AnimatePresence, keyframes } from "framer-motion";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase";
 import { Phone, MapPin, Send,  MessageSquare } from 'lucide-react';
+import AboutUs from "../components/aboutus";
+
 
 import {
   Upload,
@@ -564,6 +566,12 @@ const handlecontactSubmit = () => {
                 <Profile user={user} />
               </motion.div>
             )}
+            {tab === "about" && (
+  <motion.div key="about" variants={contentVariants} initial="hidden" animate="visible" exit="exit">
+    <AboutUs />
+  </motion.div>
+)}
+
 
             {tab === "settings" && (
               <motion.div key="settings" variants={contentVariants} initial="hidden" animate="visible" exit="exit">

@@ -52,7 +52,7 @@ function AboutUs() {
 
   const teamMembers = [
     {
-      name: "Alex Chen",
+      name: "Trishul Reddy",
       role: "AI Research Lead",
       avatar: "🧠",
       background: "from-blue-400 to-purple-600",
@@ -60,7 +60,7 @@ function AboutUs() {
       skills: ["Machine Learning", "Computer Vision", "Privacy Tech"]
     },
     {
-      name: "Sarah Kim",
+      name: "Sarika ",
       role: "Product Designer",
       avatar: "🎨",
       background: "from-pink-400 to-red-600",
@@ -68,7 +68,7 @@ function AboutUs() {
       skills: ["UX Design", "Accessibility", "User Research"]
     },
     {
-      name: "Marcus Rodriguez",
+      name: "Harsha Reddy",
       role: "Full-Stack Engineer",
       avatar: "⚡",
       background: "from-green-400 to-blue-600",
@@ -76,7 +76,7 @@ function AboutUs() {
       skills: ["React", "Node.js", "Performance"]
     },
     {
-      name: "Dr. Emily Zhang",
+      name: "Pooja sri",
       role: "Privacy Advocate",
       avatar: "🔒",
       background: "from-purple-400 to-pink-600",
